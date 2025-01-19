@@ -42,11 +42,20 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 106.25px);
     grid-gap: 15px;
+    margin-bottom: 35px;
 }
 
 .sqr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 106.25px;
     border-radius: 8px;
     background-color:cornflowerblue;
     text-align: right, bottom;
+    font-size: 35px;
+  }
+
+  .sqr:hover {
+    background-color:lightgreen;
   }

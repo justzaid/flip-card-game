@@ -17,11 +17,16 @@ const cards = document.querySelectorAll('.sqr')
 
 /*-------------------------------- Functions --------------------------------*/
 
+function cardToggle(event) {
+    console.log('I am clicked')
+}
 
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-
+cards.forEach(card => {
+    card.addEventListener('click', cardToggle)
+});
 
 /*----------------------------- Psuedo Code -----------------------------*/
 
