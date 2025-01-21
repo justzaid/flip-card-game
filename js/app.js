@@ -57,32 +57,41 @@ const symbols = [
 
 let firstCard = null;
 let secondCard = null;
-let chances = 10;
+let countDown = 30;
 cardId = 0;
-let winCount = 0;
+
 /*------------------------ Cached Element References ------------------------*/
 
-const chanceLeft = document.querySelector('#chance')
+const timerElement = document.getElementById('time')
 const totalScore = document.querySelector('#score')
 const gameBoard = document.querySelector('#board')
 const cards = document.querySelectorAll('.sqr')
+const resetButton = document.querySelector('#resetter')
 
 /*-------------------------------- Functions --------------------------------*/
 
 // Game state initalizer
 
 function render() {
-    console.log('Game is loading')
+    console.log('I am watching.')
 }
 
 
-// Game counter
+// Game status when time limit is reached
 
-// function gameStatus() {
-//    for (let counter = 0; counter <= 16; counter+2) {
-    
-//     }
-// }
+
+function countDwn() {
+    const countDownTimer = setInterval(() => {
+        countDown--;
+        timerElement.textContent = countDown;
+
+        if(countDown === 0) {
+            clearInterval(countDownTimer);
+            restartGame()
+        }
+
+    }, 1000);
+}
 
 // Reset Values if they do not match
 
@@ -91,8 +100,8 @@ function flipCards(){
     secondCard.textContent = '';
 }
 
-function nextTurn(match = false) {
 
+function nextTurn(match = false) {
 
     if(!match){
         flipCards()
@@ -102,41 +111,53 @@ function nextTurn(match = false) {
 }
 
 
-function resetGame(){
-    winCount++
-    // set all the vvariables back to the way they were in the begining as if the game was never played except wincount
+// Restart whenever
+
+function restartAny() {
+    resetButton.addEventListener('click', () => {
+        location.reload();
+    });
+}
+
+// Restart game after completing the game with a visual indicator
+
+function restartGame(){
     // reset all the cards -> loop thru each card and set the text content back to ''
-    init()
+    resetButton.classList.remove('btn-danger')
+    resetButton.classList.add('btn-success')
+    // Event listener fot the reset button when it is clicked
+    resetButton.addEventListener('click', () => {
+        location.reload();
+    });
 }
 
 // Check if the cards match
 
 function checkIfMatch() {
     if (firstCard.textContent === secondCard.textContent) {
-        // firstCard.classList.add('active');
-        // secondCard.classList.add('active');
-        console.log('It is a match');
-        isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
 
-        if(!isAnyEmpty){
-          resetGame()
+        // testing purposes
+        console.log('It is a match');
+
+        // Adding a class to emphasize matched cards
+        firstCard.classList.add('active');
+        secondCard.classList.add('active');
+
+        // Checks whether if all cards do not contain an empty string > run restartGame function or nextTurn
+        isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
+        
+        if( !isAnyEmpty ) {
+            restartGame()
             return
         }
-
         nextTurn(true)
+        
     } else {
         console.log('It is not a match')
         setTimeout(nextTurn, 1000)
     }
 
 }
-
-// function checkIfAlrMatched() {
-//     [].classList
-//     if (cards.classList.contains('active')) {
-//         cards.removeEventListener()
-//     }
-// }
 
 
 // Card handler - When clicked
@@ -185,16 +206,16 @@ cards.forEach(card => {
 });
 
 
+
 /*--------------------------------- Function Calling--------------------------------------*/
 
 function init(){
     render()
     shuffleCards(symbols)
+    restartAny()
 }
 
 init()
-// checkIfAlrMatched()
-// gameStatus()
 
 
 /*----------------------------- Psuedo Code -----------------------------*/
@@ -219,3 +240,18 @@ How though
 
 
 */
+
+
+// Codes that did not work - For future reference
+
+// This code did not work because .classList cannot be used against the cached const cards. cards by default doesn't contain any class when cached and cannot be then manipulated to see if it contains the class '.active'. This also causes an error because cards is not an element, it simply retrieves all elements with (.sqr) class from the HTML. The better alternative was just to see if event.target.textContent is true, i.e. its not an empty string, then it returns and doesnt compare itself with already active cards because other conditions include if firstCard and secondCard are true etc. 
+
+// firstCard.classList.add('active');
+// secondCard.classList.add('active');
+
+// function checkIfAlrMatched() {
+//     [].classList
+//     if (cards.classList.contains('active')) {
+//         cards.removeEventListener()
+//     }
+// }
