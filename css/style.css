@@ -59,3 +59,7 @@ body {
   .sqr:hover {
     background-color:lightgreen;
   }
+
+  /* .active {
+    cursor: none
+  } */

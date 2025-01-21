@@ -55,11 +55,11 @@ const symbols = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let firstCard;
-let secondCard;
-let checkBoard = false;
+let firstCard = null;
+let secondCard = null;
 let chances = 10;
-
+cardId = 0;
+let winCount = 0;
 /*------------------------ Cached Element References ------------------------*/
 
 const chanceLeft = document.querySelector('#chance')
@@ -76,13 +76,90 @@ function render() {
 }
 
 
-// Card Toggler - When clicked
+// Game counter
 
-function cardToggle(event) {
-    const cardId = event.target.id;
-    event.target.textContent = symbols[cardId].icon;
-    console.log(symbols[cardId].name)
+// function gameStatus() {
+//    for (let counter = 0; counter <= 16; counter+2) {
     
+//     }
+// }
+
+// Reset Values if they do not match
+
+function flipCards(){
+    firstCard.textContent = '';
+    secondCard.textContent = '';
+}
+
+function nextTurn(match = false) {
+
+
+    if(!match){
+        flipCards()
+    }
+    firstCard = null
+    secondCard = null
+}
+
+
+function resetGame(){
+    winCount++
+    // set all the vvariables back to the way they were in the begining as if the game was never played except wincount
+    // reset all the cards -> loop thru each card and set the text content back to ''
+    init()
+}
+
+// Check if the cards match
+
+function checkIfMatch() {
+    if (firstCard.textContent === secondCard.textContent) {
+        // firstCard.classList.add('active');
+        // secondCard.classList.add('active');
+        console.log('It is a match');
+        isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
+
+        if(!isAnyEmpty){
+          resetGame()
+            return
+        }
+
+        nextTurn(true)
+    } else {
+        console.log('It is not a match')
+        setTimeout(nextTurn, 1000)
+    }
+
+}
+
+// function checkIfAlrMatched() {
+//     [].classList
+//     if (cards.classList.contains('active')) {
+//         cards.removeEventListener()
+//     }
+// }
+
+
+// Card handler - When clicked
+
+function cardHandle(event) {
+
+    if (( firstCard && secondCard ) || (  firstCard && firstCard.id === event.target.id ) || event.target.textContent) {
+        return
+    }
+    
+    cardId = event.target.id;
+    const cardElement = event.target;
+    cardElement.textContent = symbols[cardId].icon;
+    
+    if (firstCard === null) {
+        firstCard = cardElement;
+        console.log(firstCard)
+    } else {
+        secondCard = cardElement;
+        console.log(secondCard)
+        checkIfMatch()
+    }
+
 }
 
 
@@ -98,28 +175,27 @@ function shuffleCards(symbols) {
     }
 }
 
-// Check if the cards match
-
-
-function checkIfMatch(firstCard) {
-    if (firstCard === secondCard) {
-        return;
-    } 
-}
 
 /*----------------------------- Event Listeners -----------------------------*/
 
 // Event listener that registers a click and runs the cardToggle function
 
 cards.forEach(card => {
-    card.addEventListener('click', cardToggle);
+    card.addEventListener('click', cardHandle);
 });
 
 
 /*--------------------------------- Function Calling--------------------------------------*/
 
-render()
-shuffleCards(symbols)
+function init(){
+    render()
+    shuffleCards(symbols)
+}
+
+init()
+// checkIfAlrMatched()
+// gameStatus()
+
 
 /*----------------------------- Psuedo Code -----------------------------*/
 
@@ -130,6 +206,15 @@ The cards should contain event listeners that register a click event.
 The cards should be able to display the icon it represents underneath.
 The first selected card must be differentiated against the second selected card.
 If the cards do not match, then both should return back to their inital stage and reduce chances by 1.
+
+* What I'm trying to do now *
+
+Since each object inside the element has a name,
+I want to save the first clicked card's information in a variable.
+
+I want to then compare the first variable class to the class of the second card.
+
+How though
 
 
 
