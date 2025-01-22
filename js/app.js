@@ -57,7 +57,7 @@ const symbols = [
 
 let firstCard = null;
 let secondCard = null;
-let timeLeft = 3;
+let timeLeft = 45;
 let timeInterval = null;
 cardId = 0;
 
@@ -77,7 +77,6 @@ function render() {
     console.log('I am watching.')
 }
 
-
 // Game status when time limit is reached
 
 function countDown() {
@@ -85,15 +84,15 @@ function countDown() {
         timeInterval = setInterval(() => {
             timeLeft--;
             timerElement.textContent = timeLeft;
-            if (timeLeft <= 30 && timeLeft > 20) {
+            if (timeLeft <= 45 && timeLeft > 35) {
                 timerElement.classList.add('safe')
-            } else if (timeLeft <= 20 && timeLeft > 10) {
+            } else if (timeLeft <= 35 && timeLeft > 15) {
                 timerElement.classList.remove('safe')
                 timerElement.classList.add('caution')
-            } else if (timeLeft <= 10 && timeLeft > 0) {
+            } else if (timeLeft <= 15 && timeLeft > 0) {
                 timerElement.classList.remove('caution')
                 timerElement.classList.add('danger')
-            }else {          
+            } else {          
                 stopClock()
                 restartGame()
             }
@@ -109,9 +108,12 @@ function flipCards() {
 }
 
 
-function nextTurn( match = false ) {
+function nextTurn(match = false) {
 
-    if ( !match ) {
+    firstCard.classList.remove('checker')
+    secondCard.classList.remove('checker')
+
+    if (!match) {
         flipCards()
     }
 
@@ -120,10 +122,11 @@ function nextTurn( match = false ) {
 }
 
 
-function stopClock(){
-    if(timeInterval){
+function stopClock() {
+    if (timeInterval) {
         clearInterval(timeInterval)
         timeInterval = null;
+        timerElement.style.color = 'red';
     }
 }
 
@@ -137,10 +140,13 @@ function restartAny() {
 
 // Restart game after completing the game with a visual indicator
 
-function restartGame(){
+function restartGame() {
+
     // reset all the cards -> loop thru each card and set the text content back to ''
     resetButton.classList.remove('btn-danger')
     resetButton.classList.add('btn-success')
+    clearInterval(timeInterval)
+
     // Event listener fot the reset button when it is clicked
     resetButton.addEventListener('click', () => {
         location.reload();
@@ -150,7 +156,9 @@ function restartGame(){
 // Check if the cards match
 
 function checkIfMatch() {
-  
+
+  cardHandle(firstCard, secondCard)
+
     if (firstCard.textContent === secondCard.textContent) {
 
         // testing purposes
@@ -163,7 +171,9 @@ function checkIfMatch() {
         // Checks whether if all cards do not contain an empty string > run restartGame function or nextTurn
         isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
         
-        if ( !isAnyEmpty ) {
+        if (!isAnyEmpty) {
+            firstCard.classList.remove('checker')
+            secondCard.classList.remove('checker')
             restartGame()
             return
         }
@@ -193,9 +203,11 @@ function cardHandle(event) {
     if (firstCard === null) {
         countDown()
         firstCard = cardElement;
+        cardElement.classList.add('checker')
         console.log(firstCard)
     } else {
         secondCard = cardElement;
+        cardElement.classList.add('checker')
         console.log(secondCard)
         checkIfMatch()
     }

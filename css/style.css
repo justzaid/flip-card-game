@@ -68,8 +68,16 @@ background-color:thistle;
     background-color:lightgreen;
 }
 
+.checker {
+    background-color:sandybrown
+}
+
+.checker:hover:not(.active) {
+    background-color: sandybrown;
+}
+
 .safe {
-    color: green
+    color: limegreen
 }
 
 .caution {
@@ -79,6 +87,7 @@ background-color:thistle;
 .danger {
     color: red
 }
+
 
 /*
 This code was supposed to remove the cursor of already acitvated/matched cards to prevent them from being clickable or registering a click event *** DID NOT WORK *** changing CSS != adding/removinf JS functionality
