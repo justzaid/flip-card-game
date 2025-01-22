@@ -249,30 +249,7 @@ function init() {
 init()
 
 
-/*----------------------------- Psuedo Code -----------------------------*/
-
-/* 
-
-The cards should be initalized randomly and should be different after reseting.
-The cards should contain event listeners that register a click event.
-The cards should be able to display the icon it represents underneath.
-The first selected card must be differentiated against the second selected card.
-If the cards do not match, then both should return back to their inital stage and reduce chances by 1.
-
-* What I'm trying to do now *
-
-Since each object inside the element has a name,
-I want to save the first clicked card's information in a variable.
-
-I want to then compare the first variable class to the class of the second card.
-
-I want the timer to run when i first click a card
-I want the timer to run without running more than once when i first flip the card
-I want the timer not to not decrement by more than 1 second everytime i click or select cards aka while the game is still being played
-i want the timer to stop the game or the cards from being clicked when it runs out
-
-*/
-
+/*----------------------------- Graveyard -----------------------------*/
 
 // Codes that did not work - For future reference
 
@@ -288,9 +265,9 @@ i want the timer to stop the game or the cards from being clicked when it runs o
 //     }
 // }
 
+// This code was supposed to remove the cursor of already acitvated/matched cards to prevent them from being clickable or registering a click event *** DID NOT WORK *** changing CSS != adding/removinf JS functionality
 
-// if(countDown === 0) {
-    // clearInterval(countDownTimer);
-    // timerElement.textContent = 'Time is up!';
-    // restartGame()
-// }
+
+  /* .active {
+    cursor: none
+  } */

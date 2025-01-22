@@ -8,6 +8,11 @@ This game was chosen for the project as it challenges players to remember the po
 
 This game also has the potential to expand and scale its difficulty by creating similar icons/images to test a player's memory or by creating larger grids.
 
+## Getting started
+
++ Link to [Deployed game]()
+
++ Link to [Planning Material Used - Trello](https://trello.com/b/Odq8mpeG/project-1-seb-unit-1)
 
 ## Attributions
 

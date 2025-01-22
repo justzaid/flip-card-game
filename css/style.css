@@ -87,12 +87,3 @@ background-color:thistle;
 .danger {
     color: red
 }
-
-
-/*
-This code was supposed to remove the cursor of already acitvated/matched cards to prevent them from being clickable or registering a click event *** DID NOT WORK *** changing CSS != adding/removinf JS functionality
-*/
-
-  /* .active {
-    cursor: none
-  } */
