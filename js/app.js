@@ -57,7 +57,8 @@ const symbols = [
 
 let firstCard = null;
 let secondCard = null;
-let countDown = 30;
+let timeLeft = 3;
+let timeInterval = null;
 cardId = 0;
 
 /*------------------------ Cached Element References ------------------------*/
@@ -79,37 +80,52 @@ function render() {
 
 // Game status when time limit is reached
 
-
-function countDwn() {
-    const countDownTimer = setInterval(() => {
-        countDown--;
-        timerElement.textContent = countDown;
-
-        if(countDown === 0) {
-            clearInterval(countDownTimer);
-            restartGame()
-        }
-
-    }, 1000);
+function countDown() {
+    if(!timeInterval){
+        timeInterval = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            if (timeLeft <= 30 && timeLeft > 20) {
+                timerElement.classList.add('safe')
+            } else if (timeLeft <= 20 && timeLeft > 10) {
+                timerElement.classList.remove('safe')
+                timerElement.classList.add('caution')
+            } else if (timeLeft <= 10 && timeLeft > 0) {
+                timerElement.classList.remove('caution')
+                timerElement.classList.add('danger')
+            }else {          
+                stopClock()
+                restartGame()
+            }
+        }, 1000);
+    }
 }
 
 // Reset Values if they do not match
 
-function flipCards(){
+function flipCards() {
     firstCard.textContent = '';
     secondCard.textContent = '';
 }
 
 
-function nextTurn(match = false) {
+function nextTurn( match = false ) {
 
-    if(!match){
+    if ( !match ) {
         flipCards()
     }
+
     firstCard = null
     secondCard = null
 }
 
+
+function stopClock(){
+    if(timeInterval){
+        clearInterval(timeInterval)
+        timeInterval = null;
+    }
+}
 
 // Restart whenever
 
@@ -134,6 +150,7 @@ function restartGame(){
 // Check if the cards match
 
 function checkIfMatch() {
+  
     if (firstCard.textContent === secondCard.textContent) {
 
         // testing purposes
@@ -146,7 +163,7 @@ function checkIfMatch() {
         // Checks whether if all cards do not contain an empty string > run restartGame function or nextTurn
         isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
         
-        if( !isAnyEmpty ) {
+        if ( !isAnyEmpty ) {
             restartGame()
             return
         }
@@ -164,15 +181,17 @@ function checkIfMatch() {
 
 function cardHandle(event) {
 
-    if (( firstCard && secondCard ) || (  firstCard && firstCard.id === event.target.id ) || event.target.textContent) {
+    if (( firstCard && secondCard ) || (  firstCard && firstCard.id === event.target.id ) || event.target.textContent || timeLeft === 0) {
         return
     }
     
     cardId = event.target.id;
     const cardElement = event.target;
     cardElement.textContent = symbols[cardId].icon;
+
     
     if (firstCard === null) {
+        countDown()
         firstCard = cardElement;
         console.log(firstCard)
     } else {
@@ -209,7 +228,7 @@ cards.forEach(card => {
 
 /*--------------------------------- Function Calling--------------------------------------*/
 
-function init(){
+function init() {
     render()
     shuffleCards(symbols)
     restartAny()
@@ -235,9 +254,10 @@ I want to save the first clicked card's information in a variable.
 
 I want to then compare the first variable class to the class of the second card.
 
-How though
-
-
+I want the timer to run when i first click a card
+I want the timer to run without running more than once when i first flip the card
+I want the timer not to not decrement by more than 1 second everytime i click or select cards aka while the game is still being played
+i want the timer to stop the game or the cards from being clicked when it runs out
 
 */
 
@@ -254,4 +274,12 @@ How though
 //     if (cards.classList.contains('active')) {
 //         cards.removeEventListener()
 //     }
+// }
+
+
+
+// if(countDown === 0) {
+    // clearInterval(countDownTimer);
+    // timerElement.textContent = 'Time is up!';
+    // restartGame()
 // }

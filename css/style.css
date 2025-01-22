@@ -32,10 +32,14 @@ body {
     margin-bottom: 20px;
 }
 
-#chances-section {
+#time-section {
     display: flex;
     font-size: 20px;
     margin-bottom: 15px;
+}
+
+#time-left {
+    margin-right: 10px;
 }
 
 #board {
@@ -62,6 +66,18 @@ background-color:thistle;
 
 .active {
     background-color:lightgreen;
+}
+
+.safe {
+    color: green
+}
+
+.caution {
+    color:coral
+}
+
+.danger {
+    color: red
 }
 
 /*
