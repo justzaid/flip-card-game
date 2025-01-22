@@ -289,7 +289,6 @@ i want the timer to stop the game or the cards from being clicked when it runs o
 // }
 
 
-
 // if(countDown === 0) {
     // clearInterval(countDownTimer);
     // timerElement.textContent = 'Time is up!';
