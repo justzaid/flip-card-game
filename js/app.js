@@ -92,7 +92,8 @@ function countDown() {
             } else if (timeLeft <= 15 && timeLeft > 0) {
                 timerElement.classList.remove('caution')
                 timerElement.classList.add('danger')
-            } else {          
+            } else {                
+                timerElement.textContent = 'Time is up!' 
                 stopClock()
                 restartGame()
             }
