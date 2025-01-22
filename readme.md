@@ -10,7 +10,7 @@ This game also has the potential to expand and scale its difficulty by creating 
 
 ## Getting started
 
-+ Link to [Deployed game]()
++ Link to [Deployed game](https://justzaid.github.io/flip-card-game/)
 
 + Link to [Planning Material Used - Trello](https://trello.com/b/Odq8mpeG/project-1-seb-unit-1)
 
