@@ -49,6 +49,7 @@ body {
     margin-top: 15px;
 }
 
+
 .sqr {
     display: flex;
     justify-content: center;
@@ -59,6 +60,29 @@ body {
     text-align: right, bottom;
     font-size: 35px;
   }
+
+  @media (max-width: 1400px) {
+
+    #title {
+        font-size: 25px
+    }
+
+    #time-section {
+         font-size: 18px
+    }
+    
+    #board {
+      grid-template-columns: repeat(4, 80.25px);
+    }
+
+    .sqr {
+        height: 80.25px
+    }
+
+    .btn {
+    font-size: 15px;
+  }
+}
 
 .sqr:hover:not(.active) {
 background-color:thistle;
