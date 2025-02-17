@@ -1,0 +1,22 @@
+/*----------------------------- Graveyard -----------------------------*/
+
+// Codes that did not work - For future reference
+
+// This code did not work because .classList cannot be used against the cached const cards. cards by default doesn't contain any class when cached and cannot be then manipulated to see if it contains the class '.active'. This also causes an error because cards is not an element, it simply retrieves all elements with (.sqr) class from the HTML. The better alternative was just to see if event.target.textContent is true, i.e. its not an empty string, then it returns and doesnt compare itself with already active cards because other conditions include if firstCard and secondCard are true etc. 
+
+// firstCard.classList.add('active');
+// secondCard.classList.add('active');
+
+// function checkIfAlrMatched() {
+//     [].classList
+//     if (cards.classList.contains('active')) {
+//         cards.removeEventListener()
+//     }
+// }
+
+// This code was supposed to remove the cursor of already acitvated/matched cards to prevent them from being clickable or registering a click event *** DID NOT WORK *** changing CSS != adding/removinf JS functionality
+
+
+  /* .active {
+    cursor: none
+  } */
