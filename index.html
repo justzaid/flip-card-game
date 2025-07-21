@@ -9,14 +9,14 @@
     <title>Flip Card Game</title>
 </head>
 <body>
-
+    <audio id="winAudio" src="assets/Tada.mp3" preload="auto"></audio>
     <div id="infobox">
         <div id="title">Card Memory Game</div>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">How to Play</button>
 
         <div id="time-section">
             <div id="time-left">Time: </div>
-            <div id="time" style="font-weight: 500;">45</div>
+            <div id="time" style="font-weight: 500;">45 Seconds</div>
         </div>
     </div>
       
@@ -68,5 +68,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <script src='https://cdn.statically.io/gh/atAnupam/main/refs/heads/main/confetti.js'></script>
+    <div id='confetti' style='display:block;z-index:999999;pointer-events:none;position:fixed;top:0;left:0;right:0;'></div>
 </body>
 </html>

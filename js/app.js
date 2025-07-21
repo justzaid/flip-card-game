@@ -53,6 +53,9 @@ const symbols = [
 ]
 
 
+
+
+
 /*---------------------------- Variables (state) ----------------------------*/
 
 let firstCard = null;
@@ -68,6 +71,7 @@ const totalScore = document.querySelector('#score')
 const gameBoard = document.querySelector('#board')
 const cards = document.querySelectorAll('.sqr')
 const resetButton = document.querySelector('#resetter')
+const timeText = document.getElementById('time-left')
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -83,7 +87,7 @@ function countDown() {
     if(!timeInterval){
         timeInterval = setInterval(() => {
             timeLeft--;
-            timerElement.textContent = timeLeft;
+            timerElement.textContent = timeLeft + ' Seconds';
             if (timeLeft <= 45 && timeLeft > 35) {
                 timerElement.classList.add('safe')
             } else if (timeLeft <= 35 && timeLeft > 15) {
@@ -158,8 +162,6 @@ function restartGame() {
 
 function checkIfMatch() {
 
-  cardHandle(firstCard, secondCard)
-
     if (firstCard.textContent === secondCard.textContent) {
 
         // testing purposes
@@ -175,6 +177,12 @@ function checkIfMatch() {
         if (!isAnyEmpty) {
             firstCard.classList.remove('checker')
             secondCard.classList.remove('checker')
+
+            // Confetti Animation and Sound Effect
+            confetti.start(5000);
+            onWin();
+            timeText.textContent = `🎉 You win! You beat the timer at: `;
+
             restartGame()
             return
         }
@@ -228,6 +236,15 @@ function shuffleCards(symbols) {
     }
 }
 
+// Function running an audio when game is won
+
+function onWin() {
+  const audio = document.getElementById('winAudio');
+  if (audio) {
+    audio.play();
+  }
+}
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -236,8 +253,6 @@ function shuffleCards(symbols) {
 cards.forEach(card => {
     card.addEventListener('click', cardHandle);
 });
-
-
 
 /*--------------------------------- Function Calling--------------------------------------*/
 
@@ -248,5 +263,4 @@ function init() {
 }
 
 init()
-
 
