@@ -75,13 +75,10 @@ const timeText = document.getElementById('time-left')
 
 /*-------------------------------- Functions --------------------------------*/
 
-// Game state initalizer
 
 function render() {
     console.log('I am watching.')
 }
-
-// Game status when time limit is reached
 
 function countDown() {
     if(!timeInterval){
@@ -105,8 +102,6 @@ function countDown() {
     }
 }
 
-// Reset Values if they do not match
-
 function flipCards() {
     firstCard.textContent = '';
     secondCard.textContent = '';
@@ -115,8 +110,8 @@ function flipCards() {
 
 function nextTurn(match = false) {
 
-    firstCard.classList.remove('checker')
-    secondCard.classList.remove('checker')
+    firstCard.classList.remove('checker', 'animate__headShake')
+    secondCard.classList.remove('checker', 'animate__headShake')
 
     if (!match) {
         flipCards()
@@ -135,68 +130,66 @@ function stopClock() {
     }
 }
 
-// Restart whenever
-
 function restartAny() {
     resetButton.addEventListener('click', () => {
         location.reload();
     });
 }
 
-// Restart game after completing the game with a visual indicator
-
 function restartGame() {
 
-    // reset all the cards -> loop thru each card and set the text content back to ''
     resetButton.classList.remove('btn-danger')
     resetButton.classList.add('btn-success')
     clearInterval(timeInterval)
 
-    // Event listener fot the reset button when it is clicked
     resetButton.addEventListener('click', () => {
         location.reload();
     });
 }
 
-// Check if the cards match
 
 function checkIfMatch() {
 
     if (firstCard.textContent === secondCard.textContent) {
-
-        // testing purposes
         console.log('It is a match');
 
-        // Adding a class to emphasize matched cards
         firstCard.classList.add('active');
         secondCard.classList.add('active');
 
-        // Checks whether if all cards do not contain an empty string > run restartGame function or nextTurn
-        isAnyEmpty = Array.from(cards).some(c => c.textContent === '')
-        
-        if (!isAnyEmpty) {
+        firstCard.classList.add('animate__rubberBand')
+        secondCard.classList.add('animate__rubberBand')
+
+        const allCards = [...cards]
+        const boardIsComplete = allCards.every((card) => {
+            return card.classList.contains('active')
+        })
+
+        if (boardIsComplete) {
             firstCard.classList.remove('checker')
             secondCard.classList.remove('checker')
 
-            // Confetti Animation and Sound Effect
             confetti.start(5000);
             onWin();
             timeText.textContent = `🎉 You win! You beat the timer at: `;
 
+            if (typeof confetti !== 'undefined') {
+                confetti.start(5000);
+            } else {
+                console.error('Confetti library not loaded');
+            }
+            
             restartGame()
             return
         }
         nextTurn(true)
-        
     } else {
         console.log('It is not a match')
+        firstCard.classList.add('animate__headShake');
+        secondCard.classList.add('animate__headShake');
         setTimeout(nextTurn, 1000)
     }
 
 }
-
-
-// Card handler - When clicked
 
 function cardHandle(event) {
 
@@ -224,8 +217,6 @@ function cardHandle(event) {
 }
 
 
-// Card shuffling / Card Randomizer Function
-
 function shuffleCards(symbols) {
     let currentIdx = symbols.length;
     while (currentIdx != 0) {
@@ -236,8 +227,6 @@ function shuffleCards(symbols) {
     }
 }
 
-// Function running an audio when game is won
-
 function onWin() {
   const audio = document.getElementById('winAudio');
   if (audio) {
@@ -247,8 +236,6 @@ function onWin() {
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-
-// Event listener that registers a click and runs the cardToggle function
 
 cards.forEach(card => {
     card.addEventListener('click', cardHandle);
