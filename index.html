@@ -13,13 +13,15 @@
 </head>
 <body>
     <audio id="winAudio" src="assets/Tada.mp3" preload="auto"></audio>
+    <audio id="menuClickSound" src="assets/menuClick.mp3" preload="auto"></audio>
+    <audio id="timeTicker" src="assets/timeTicking.mp3" preload="auto"></audio>
     <div id="infobox">
         <div id="title">Card Memory Game</div>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">How to Play</button>
+        <button id="how-to-play" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">How to Play</button>
 
         <div id="time-section">
-            <div id="time-left">Time: </div>
-            <div id="time" style="font-weight: 500;">45 Seconds</div>
+            <div id="time-left" style="font-size: 25px;" class="animate__animated">🕰️: </div>
+            <div id="time" style="font-weight: 500;font-size: 20px;">45 Seconds</div>
         </div>
     </div>
       

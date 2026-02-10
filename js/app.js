@@ -60,7 +60,7 @@ const symbols = [
 
 let firstCard = null;
 let secondCard = null;
-let timeLeft = 45;
+let timeLeft = 11;
 let timeInterval = null;
 cardId = 0;
 
@@ -72,6 +72,11 @@ const gameBoard = document.querySelector('#board')
 const cards = document.querySelectorAll('.sqr')
 const resetButton = document.querySelector('#resetter')
 const timeText = document.getElementById('time-left')
+const howToPlayButton = document.getElementById('how-to-play')
+const menuClick = document.getElementById('menuClickSound')
+const gameWon = document.getElementById('winAudio');
+const timeTicker = document.getElementById('timeTicker')
+
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -93,8 +98,14 @@ function countDown() {
             } else if (timeLeft <= 15 && timeLeft > 0) {
                 timerElement.classList.remove('caution')
                 timerElement.classList.add('danger')
+                if(timeLeft <= 9) {
+                    timeTicker.play()
+                    timeText.classList.add('animate__headShake', 'animate__infinite')
+                }
             } else {                
-                timerElement.textContent = 'Time is up!' 
+                timerElement.textContent = 'Time is up!'
+                timeText.classList.remove('animate__headShake', 'animate__infinite')
+                timeTicker.pause()
                 stopClock()
                 restartGame()
             }
@@ -151,7 +162,6 @@ function restartGame() {
 function checkIfMatch() {
 
     if (firstCard.textContent === secondCard.textContent) {
-        console.log('It is a match');
 
         firstCard.classList.add('active');
         secondCard.classList.add('active');
@@ -177,13 +187,14 @@ function checkIfMatch() {
             } else {
                 console.error('Confetti library not loaded');
             }
-            
+
+            timeText.classList.remove('animate__headShake', 'animate__infinite')       
+            timeTicker.pause()     
             restartGame()
             return
         }
         nextTurn(true)
     } else {
-        console.log('It is not a match')
         firstCard.classList.add('animate__headShake');
         secondCard.classList.add('animate__headShake');
         setTimeout(nextTurn, 1000)
@@ -206,11 +217,9 @@ function cardHandle(event) {
         countDown()
         firstCard = cardElement;
         cardElement.classList.add('checker')
-        console.log(firstCard)
     } else {
         secondCard = cardElement;
         cardElement.classList.add('checker')
-        console.log(secondCard)
         checkIfMatch()
     }
 
@@ -228,10 +237,7 @@ function shuffleCards(symbols) {
 }
 
 function onWin() {
-  const audio = document.getElementById('winAudio');
-  if (audio) {
-    audio.play();
-  }
+    gameWon.play();
 }
 
 
@@ -240,6 +246,12 @@ function onWin() {
 cards.forEach(card => {
     card.addEventListener('click', cardHandle);
 });
+
+howToPlayButton.addEventListener('click', () => {
+    menuClick.play()
+})
+
+
 
 /*--------------------------------- Function Calling--------------------------------------*/
 
