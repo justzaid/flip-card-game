@@ -1,26 +1,14 @@
 /*-------------------------------- Constants --------------------------------*/
 
-const symbols = [
-    {   icon: '🦅',
-        name: 'eagle'
-    },
+const iconList = [
     {   icon: '🦅',
         name: 'eagle'
     },
     {   icon: '🦜',
         name: 'parrot'
     },     
-    {   icon: '🦜',
-        name: 'parrot'
-    },
     {   icon: '🦑',
         name: 'octopus'
-    },
-    {   icon: '🦑',
-        name: 'octopus'
-    },
-    {   icon: '🐢',
-        name: 'turtle'
     },
     {   icon: '🐢',
         name: 'turtle'
@@ -28,29 +16,18 @@ const symbols = [
     {   icon: '🐎',
         name: 'horse'
     },
-    {   icon: '🐎',
-        name: 'horse'
-    },
-    {   icon: '🦍',
-        name: 'gorilla'
-    },
     {   icon: '🦍',
         name: 'gorilla'
     },
     {   icon: '🦆',
         name: 'duck'
     },
-    {   icon: '🦆',
-        name: 'duck'
-    },
-    {   icon: '🐳',
-        name: 'whale'
-    }, 
     {   icon: '🐳',
         name: 'whale'
     }
-
 ]
+
+const symbols = [...iconList, ...iconList]
 
 
 
@@ -60,7 +37,7 @@ const symbols = [
 
 let firstCard = null;
 let secondCard = null;
-let timeLeft = 11;
+let timeLeft = 45;
 let timeInterval = null;
 cardId = 0;
 
